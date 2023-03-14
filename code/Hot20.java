@@ -3,7 +3,6 @@ package code;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Objects;
 import java.util.Stack;
 
 class Solution {
@@ -37,7 +36,7 @@ class Solution {
     }
 }
 
-public class hot20 {
+public class Hot20 {
     public static void main(String[] args) {
 //        Stack<String> s1=new Stack<>();
         Solution s1=new Solution();
