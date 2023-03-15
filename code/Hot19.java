@@ -1,6 +1,7 @@
 package code;
 
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -30,6 +31,8 @@ class LinkList {
 //    LinkList(ListNode listNode){
 //        this.head=listNode;
 //    }
+
+    //  LL.initLinkByList(Arrays.asList(1, 2, 3, 4, 5))
     ListNode initLinkByList(List<Integer> list1) {
         ListNode head = new ListNode();
         if(list1.size()==0){
@@ -44,6 +47,23 @@ class LinkList {
         }
         return head.next;
     }
+
+    //  LL.initLinkByArray(new int[]{1,2,3})
+    ListNode initLinkByArray(int[] list1) {
+        ListNode head = new ListNode();
+        if(list1.length==0){
+            return null;
+        }
+        ListNode tail = new ListNode(list1[0]);
+        head.next = tail;
+        for (int i = 1; i < list1.length; i++) {
+            ListNode l2 = new ListNode(list1[i]);
+            tail.next = l2;
+            tail = l2;
+        }
+        return head.next;
+    }
+
 
     void printAll(ListNode head) {
         while (head.next != null) {
