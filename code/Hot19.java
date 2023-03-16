@@ -33,7 +33,7 @@ class LinkList {
 //    }
 
     //  LL.initLinkByList(Arrays.asList(1, 2, 3, 4, 5))
-    ListNode initLinkByList(List<Integer> list1) {
+    static ListNode initLinkByList(List<Integer> list1) {
         ListNode head = new ListNode();
         if(list1.size()==0){
             return null;
@@ -49,7 +49,7 @@ class LinkList {
     }
 
     //  LL.initLinkByArray(new int[]{1,2,3})
-    ListNode initLinkByArray(int[] list1) {
+    static ListNode initLinkByArray(int[] list1) {
         ListNode head = new ListNode();
         if(list1.length==0){
             return null;
@@ -65,7 +65,7 @@ class LinkList {
     }
 
 
-    void printAll(ListNode head) {
+    static void printAll(ListNode head) {
         while (head.next != null) {
             System.out.println(head.val);
             head = head.next;

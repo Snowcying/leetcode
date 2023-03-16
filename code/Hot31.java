@@ -1,8 +1,5 @@
 package code;
 
-import java.util.HashMap;
-import java.util.Map;
-
 class Solution24 {
 
 
@@ -33,7 +30,7 @@ class Solution24 {
         }
     }
 }
-public class Hot24 {
+public class Hot31 {
 
     public static void main(String[] args) {
         Solution24 s24 = new Solution24();

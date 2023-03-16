@@ -58,12 +58,12 @@ class Solution23 {
 
 public class Hot23 {
     public static void main(String[] args) {
-        LinkList LL = new LinkList();
+//        LinkList LL = new LinkList();
 
         ListNode[] lists = new ListNode[10];
         int[][] input = {{-11,1, 4, 5}, {1, 3, 4}, {2, 6},{1,2,3}};
         for (int x = 0; x < input.length; x++) {
-            lists[x] = LL.initLinkByArray(input[x]);
+            lists[x] = LinkList.initLinkByArray(input[x]);
         }
 //        LL.printAll(lists[0]);
 //        LL.printAll(lists[1]);
@@ -72,7 +72,7 @@ public class Hot23 {
 
         Solution23 s23 = new Solution23();
         ListNode ans = s23.mergeKLists(lists);
-        LL.printAll(ans);
+        LinkList.printAll(ans);
 //        LL.printAll(s23.merge2Lists(lists[0],lists[1]));
 
     }
