@@ -88,27 +88,95 @@ class Solution42 {
 
         return ans;
     }
+    static int findMax(int[] height,int index){
+        boolean flag=false;
+        int max=height[index];
+        int length = height.length;
+        index++;
+        while(index<length){
+            if(height[index]>=max){
+                flag=true;
+                max=height[index];
+            }
+            index++;
+        }
+        if(!flag){
+            return -1;
+        }
+        return max;
+    }
     static public int trap3(int[] height) {
         int ans=0;
         int length = height.length;
         if(length==1||length==2){
             return 0;
         }
+        int[] dp=new int[length];
+//        System.out.println(dp);
+        for (int i = 1; i < length; i++) {
+            if(dp[i-1]==0){
+                if(height[i]>=height[i-1]){
+                    dp[i]=0;
+                }else {
+                    int temp=findMax(height,i);
+                    int lMax=height[i-1];
+                    int min=Math.min(temp,lMax);
+                    dp[i]=Math.max(min-height[i],0);
+                }
+            }else{
 
+                    int max=dp[i-1]+height[i-1];
+                    dp[i]=Math.max(max-height[i],0);
 
+            }
+        }
+        for(int a1:dp){
+//            System.out.println(a1);
+            ans+=a1;
+        }
         return ans;
     }
 
+    static public int trap4(int[] height) {
+        int ans=0;
+        int length = height.length;
+        if(length==1||length==2){
+            return 0;
+        }
+        int[] dp=new int[length];
+//        System.out.println(dp);
+        int[] lMax=new int[length];
+        int[] rMax=new int[length];
+        rMax[length-1]=height[length-1];
+        lMax[0]=height[0];
+        for (int i = 1; i < length; i++) {
+            lMax[i]=Math.max(height[i],lMax[i-1]);
+            int rIndex=length-1-i;
+            rMax[rIndex]=Math.max(height[rIndex],rMax[rIndex+1]);
+        }
+        for (int i = 1; i < length-1; i++) {
+            int max=Math.min(lMax[i],rMax[i]);
+            dp[i]+=Math.max(max-height[i],0);
+        }
+        for(int a1:dp){
+            System.out.println(a1);
+            ans+=a1;
+        }
+        return ans;
+    }
 }
 
 public class Hot42 {
     public static void main(String[] args) {
 //        int[] height = {0, 1, 0, 2, 1, 0, 1, 3, 2, 1, 2, 1};
 //        int[] height = {4,2,0,3,2,4,4,4,2,4};
-//        int[] height = {2,8,5,5,6,1,7,4,5};
-        int[] height = {2};
-        int ans = Solution42.trap2(height);
+        int[] height = {2,8,5,5,6,1,7,4,5};
+//        int[] height = {2};
+        int ans1 = Solution42.trap3(height);
+        int ans2 = Solution42.trap4(height);
 //        int ans = Solution42.V(height,7,10);
-        System.out.println(ans);
+        System.out.println("---");
+        System.out.println(ans1);
+        System.out.println(ans2);
     }
 }
