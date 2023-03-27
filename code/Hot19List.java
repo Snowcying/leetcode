@@ -108,7 +108,7 @@ class Solution19 {
     }
 }
 
-public class Hot19 {
+public class Hot19List {
     //    Solution19 s1 = new Solution19();
     public static void main(String[] args) {
         Solution19 s1 = new Solution19();

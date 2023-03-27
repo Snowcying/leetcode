@@ -96,7 +96,7 @@ class Solution124 {
     }
 }
 
-public class Hot124 {
+public class Hot124Tree {
     public static void main(String[] args) {
 //        int[] nums={-10,9,20,null,null,15,7};
         Integer[] nums = {-10, 9, 20, null, null, 15, 7};
