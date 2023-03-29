@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Stack;
 
-public class Hot94 {
+public class Hot94Tree3 {
     static class Solution {
 
         static void dfs(TreeNode node, List<Integer> ans,String mode) {

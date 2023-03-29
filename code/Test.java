@@ -1,17 +1,21 @@
 package code;
 
 import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Random;
+import java.util.concurrent.Callable;
+import java.util.concurrent.FutureTask;
+import java.util.concurrent.TimeUnit;
 
-class ThreadLocalExample implements Runnable{
+class ThreadLocalExample implements Runnable {
 
     // SimpleDateFormat 不是线程安全的，所以每个线程都要有自己独立的副本
     private static final ThreadLocal<SimpleDateFormat> formatter = ThreadLocal.withInitial(() -> new SimpleDateFormat("yyyyMMdd HHmm"));
 
     public static void main(String[] args) throws InterruptedException {
         ThreadLocalExample obj = new ThreadLocalExample();
-        for(int i=0 ; i<10; i++){
-            Thread t = new Thread(obj, ""+i);
+        for (int i = 0; i < 10; i++) {
+            Thread t = new Thread(obj, "" + i);
             Thread.sleep(new Random().nextInt(1000));
             t.start();
         }
@@ -19,7 +23,7 @@ class ThreadLocalExample implements Runnable{
 
     @Override
     public void run() {
-        System.out.println("Thread Name= "+Thread.currentThread().getName()+" default Formatter = "+formatter.get().toPattern());
+        System.out.println("Thread Name= " + Thread.currentThread().getName() + " default Formatter = " + formatter.get().toPattern());
         try {
             Thread.sleep(new Random().nextInt(1000));
         } catch (InterruptedException e) {
@@ -28,7 +32,7 @@ class ThreadLocalExample implements Runnable{
         //formatter pattern is changed here by thread, but it won't reflect to other threads
         formatter.set(new SimpleDateFormat());
 
-        System.out.println("Thread Name= "+Thread.currentThread().getName()+" formatter = "+formatter.get().toPattern());
+        System.out.println("Thread Name= " + Thread.currentThread().getName() + " formatter = " + formatter.get().toPattern());
     }
 
 }
@@ -39,6 +43,7 @@ class Person {
 
     public Person() {
     }
+
     public Person(int num) {
         this.num = num;
     }
@@ -51,15 +56,18 @@ class Person {
         this.num = num;
     }
 }
+
 public class Test {
     private static final int MAXIMUM_CAPACITY = 99999;
 
-    public  static void incr(Person person){
+    public static void incr(Person person) {
         person.num++;
     }
-    static void add(int[] nums){
-        nums[1]=11;
+
+    static void add(int[] nums) {
+        nums[1] = 11;
     }
+
     static final int tableSizeFor(int cap) {
         int n = cap - 1;
         n |= n >>> 1;
@@ -69,6 +77,7 @@ public class Test {
         n |= n >>> 16;
         return (n < 0) ? 1 : (n >= MAXIMUM_CAPACITY) ? MAXIMUM_CAPACITY : n + 1;
     }
+
     public static void main(String[] args) {
 //        int i=400;
 //        Integer i1=i;
@@ -86,3 +95,99 @@ public class Test {
         System.out.println(tableSizeFor(9));
     }
 }
+
+class DeadLockCannotInterruptDemo {
+    private static Object lock1 = new Object();
+    private static Object lock2 = new Object();
+
+    public static void main(String[] args) throws Exception {
+        Thread threadA = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                synchronized (lock1) {
+                    System.out.println(Thread.currentThread().getName() + " get lock1");
+                    try {
+                        Thread.sleep(10);
+                        synchronized (lock2) {
+                            System.out.println(Thread.currentThread().getName() + " get lock2");
+                        }
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        });
+
+        Thread threadB = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                synchronized (lock2) {
+                    System.out.println(Thread.currentThread().getName() + " get lock2");
+                    try {
+                        Thread.sleep(10);
+                        synchronized (lock1) {
+                            System.out.println(Thread.currentThread().getName() + " get lock1");
+                        }
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        });
+
+        threadA.start();
+        threadB.start();
+
+        TimeUnit.SECONDS.sleep(3);
+        System.out.println("main thread begin to interrupt " + threadA.getName() + " and " + threadA.getName() + " will release lock1...");
+        threadA.interrupt();
+    }
+}
+
+class Test1 extends Thread {
+    @Override
+    public void run() {
+        super.run();
+        System.out.println("create");
+    }
+
+    public static void main(String[] args) {
+        Test1 test = new Test1();
+        Thread t1 = new Thread(test);
+        t1.start();
+        System.out.println(Thread.currentThread().getName());
+    }
+}
+
+class Test2 implements Runnable {
+    @Override
+    public void run() {
+        System.out.println("create");
+    }
+
+    public static void main(String[] args) {
+        Test1 test = new Test1();
+        Thread t1 = new Thread(test);
+        t1.start();
+        System.out.println(Thread.currentThread().getName());
+    }
+}
+
+class Test3 implements Callable<String> {
+    @Override
+    public String call() throws Exception {
+        System.out.println("Thread is Created");
+        return "OK";
+    }
+
+    public static void main(String[] args) throws Exception {
+        Test3 test = new Test3();
+        FutureTask futureTask = new FutureTask(test);
+        Thread thread = new Thread(futureTask);
+        thread.start();
+        String str = (String) futureTask.get(5, TimeUnit.SECONDS);
+        System.out.println(str);
+        System.out.println(Thread.currentThread().getName());
+    }
+}
+
