@@ -1,8 +1,7 @@
 package code;
 
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Random;
+import java.util.*;
 import java.util.concurrent.Callable;
 import java.util.concurrent.FutureTask;
 import java.util.concurrent.TimeUnit;
@@ -101,6 +100,7 @@ class DeadLockCannotInterruptDemo {
     private static Object lock2 = new Object();
 
     public static void main(String[] args) throws Exception {
+        ArrayList<Integer> list=new ArrayList<>();
         Thread threadA = new Thread(new Runnable() {
             @Override
             public void run() {
@@ -191,3 +191,47 @@ class Test3 implements Callable<String> {
     }
 }
 
+
+
+
+
+// 注意类名必须为 Main, 不要有任何 package xxx 信息
+ class Main {
+    static int[][][] vis=new int[310][310][310];
+    static int[] nums=new int[310];
+    public static int dfs(int left,int right,int root){
+        if(left>right){
+            return 0;
+        }
+        if(vis[left][right][root]!=0){
+            return vis[left][right][root];
+        }
+        int res=Integer.MAX_VALUE;
+        for(int i=left;i<=right;i++){
+            int l=dfs(left,i-1,i);
+            int r=dfs(i+1,right,i);
+            res=Math.min(res,l+r+nums[i]*nums[root]);
+        }
+        vis[left][right][root]=res;
+        return res;
+
+
+    }
+
+    public static void main(String[] args) {
+        Scanner in = new Scanner(System.in);
+        // 注意 hasNext 和 hasNextLine 的区别
+        while (in.hasNextInt()) { // 注意 while 处理多个 case
+            int n = in.nextInt();
+
+            for(int i=1;i<=n;i++){
+                nums[i]=in.nextInt();
+            }
+            nums[0]=0;
+//            Arrays.fill(vis,-1);
+//            Arrays
+            int ans=dfs(1,n,0);
+            System.out.println(ans);
+        }
+    }
+}
