@@ -100,7 +100,7 @@ class DeadLockCannotInterruptDemo {
     private static Object lock2 = new Object();
 
     public static void main(String[] args) throws Exception {
-        ArrayList<Integer> list=new ArrayList<>();
+        ArrayList<Integer> list = new ArrayList<>();
         Thread threadA = new Thread(new Runnable() {
             @Override
             public void run() {
@@ -192,27 +192,25 @@ class Test3 implements Callable<String> {
 }
 
 
-
-
-
 // 注意类名必须为 Main, 不要有任何 package xxx 信息
- class Main {
-    static int[][][] vis=new int[310][310][310];
-    static int[] nums=new int[310];
-    public static int dfs(int left,int right,int root){
-        if(left>right){
+class Main {
+    static int[][][] vis = new int[310][310][310];
+    static int[] nums = new int[310];
+
+    public static int dfs(int left, int right, int root) {
+        if (left > right) {
             return 0;
         }
-        if(vis[left][right][root]!=0){
+        if (vis[left][right][root] != 0) {
             return vis[left][right][root];
         }
-        int res=Integer.MAX_VALUE;
-        for(int i=left;i<=right;i++){
-            int l=dfs(left,i-1,i);
-            int r=dfs(i+1,right,i);
-            res=Math.min(res,l+r+nums[i]*nums[root]);
+        int res = Integer.MAX_VALUE;
+        for (int i = left; i <= right; i++) {
+            int l = dfs(left, i - 1, i);
+            int r = dfs(i + 1, right, i);
+            res = Math.min(res, l + r + nums[i] * nums[root]);
         }
-        vis[left][right][root]=res;
+        vis[left][right][root] = res;
         return res;
 
 
@@ -224,14 +222,26 @@ class Test3 implements Callable<String> {
         while (in.hasNextInt()) { // 注意 while 处理多个 case
             int n = in.nextInt();
 
-            for(int i=1;i<=n;i++){
-                nums[i]=in.nextInt();
+            for (int i = 1; i <= n; i++) {
+                nums[i] = in.nextInt();
             }
-            nums[0]=0;
+            nums[0] = 0;
 //            Arrays.fill(vis,-1);
 //            Arrays
-            int ans=dfs(1,n,0);
+            int ans = dfs(1, n, 0);
             System.out.println(ans);
         }
     }
 }
+
+class finalV {
+    public static void main(String[] args) {
+        final StringBuffer a = new StringBuffer("abcdefg");
+//执行如下语句将报告编译期错误：
+//        a=new StringBuffer("");
+//但是，执行如下语句则可以通过编译：
+        a.append(" broken!");
+        System.out.println(a);
+    }
+}
+
