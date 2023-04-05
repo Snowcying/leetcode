@@ -3,8 +3,26 @@ package code;
 import java.util.LinkedList;
 import java.util.Queue;
 
-class Tree {
-    static TreeNode initTreeByArray(Integer[] list) {
+public class TreeNode {
+    public int val;
+    int max;
+    public TreeNode left;
+    public TreeNode right;
+
+    public TreeNode() {
+    }
+
+    public TreeNode(int val) {
+        this.val = val;
+        this.max=val;
+    }
+
+    public TreeNode(int val, TreeNode left, TreeNode right) {
+        this.val = val;
+        this.left = left;
+        this.right = right;
+    }
+    static public TreeNode initTreeByArray(Integer[] list) {
         // 层序遍历
         TreeNode root = new TreeNode(list[0]);
         Queue<TreeNode> q = new LinkedList<>();
@@ -32,8 +50,7 @@ class Tree {
         }
         return root;
     }
-
-    static void printTree(TreeNode root) {
+    static public void printTree(TreeNode root) {
         Queue<TreeNode> q = new LinkedList<>();
         q.add(root);
         System.out.println(root.val);
@@ -53,58 +70,5 @@ class Tree {
             }
 
         }
-    }
-}
-
-//class TreeNode {
-//    int val;
-//    int max;
-//    TreeNode left;
-//    TreeNode right;
-//
-//    TreeNode() {
-//    }
-//
-//    TreeNode(int val) {
-//        this.val = val;
-//        this.max=val;
-//    }
-//
-//    TreeNode(int val, TreeNode left, TreeNode right) {
-//        this.val = val;
-//        this.left = left;
-//        this.right = right;
-//    }
-//}
-
-class Solution124 {
-    int max;
-     int maxGain(TreeNode node){
-         if(node==null){
-             return 0;
-         }
-        int leftGain=Math.max(maxGain(node.left),0);
-        int rightGain=Math.max(maxGain(node.right),0);
-        int nodeGain=leftGain+rightGain+node.val;
-        this.max=Math.max(nodeGain,this.max);
-        return node.val+Math.max(leftGain,rightGain);
-    }
-     public int maxPathSum(TreeNode root) {
-        this.max=root.val;
-        int nodeMax=maxGain(root);
-        return this.max;
-    }
-}
-
-public class Hot124Tree {
-    public static void main(String[] args) {
-//        int[] nums={-10,9,20,null,null,15,7};
-        Integer[] nums = {-10, 9, 20, null, null, 15, 7};
-        TreeNode root = Tree.initTreeByArray(nums);
-//        System.out.println(root.right.left.val);
-//        Tree.printTree(root);
-        Solution124 s=new Solution124();
-        System.out.println(s.maxPathSum(root));
-
     }
 }
