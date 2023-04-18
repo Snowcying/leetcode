@@ -73,7 +73,6 @@ public class Exam {
                         System.out.println(i);
                     }
                 }
-
             }
         }
     }
