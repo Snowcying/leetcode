@@ -5,74 +5,74 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-class ListNode {
-    int val;
-    ListNode next;
-
-    ListNode() {
-    }
-
-    ListNode(int val) {
-        this.val = val;
-    }
-
-    ListNode(int val, ListNode next) {
-        this.val = val;
-        this.next = next;
-    }
-}
-
-class LinkList {
-//    ListNode head;
-
-    //    LinkList(){
+//class ListNode {
+//    int val;
+//    ListNode next;
 //
+//    ListNode() {
 //    }
-//    LinkList(ListNode listNode){
-//        this.head=listNode;
+//
+//    ListNode(int val) {
+//        this.val = val;
 //    }
+//
+//    ListNode(int val, ListNode next) {
+//        this.val = val;
+//        this.next = next;
+//    }
+//}
 
-    //  LL.initLinkByList(Arrays.asList(1, 2, 3, 4, 5))
-    static ListNode initLinkByList(List<Integer> list1) {
-        ListNode head = new ListNode();
-        if(list1.size()==0){
-            return null;
-        }
-        ListNode tail = new ListNode(list1.get(0));
-        head.next = tail;
-        for (int i = 1; i < list1.size(); i++) {
-            ListNode l2 = new ListNode(list1.get(i));
-            tail.next = l2;
-            tail = l2;
-        }
-        return head.next;
-    }
-
-    //  LL.initLinkByArray(new int[]{1,2,3})
-    static ListNode initLinkByArray(int[] list1) {
-        ListNode head = new ListNode();
-        if(list1.length==0){
-            return null;
-        }
-        ListNode tail = new ListNode(list1[0]);
-        head.next = tail;
-        for (int i = 1; i < list1.length; i++) {
-            ListNode l2 = new ListNode(list1[i]);
-            tail.next = l2;
-            tail = l2;
-        }
-        return head.next;
-    }
-
-
-    static void printAll(ListNode head) {
-        while (head.next != null) {
-            System.out.println(head.val);
-            head = head.next;
-        }
-        System.out.println(head.val);
-    }
-}
+//class LinkList {
+////    ListNode head;
+//
+//    //    LinkList(){
+////
+////    }
+////    LinkList(ListNode listNode){
+////        this.head=listNode;
+////    }
+//
+//    //  LL.initLinkByList(Arrays.asList(1, 2, 3, 4, 5))
+//    static ListNode initLinkByList(List<Integer> list1) {
+//        ListNode head = new ListNode();
+//        if(list1.size()==0){
+//            return null;
+//        }
+//        ListNode tail = new ListNode(list1.get(0));
+//        head.next = tail;
+//        for (int i = 1; i < list1.size(); i++) {
+//            ListNode l2 = new ListNode(list1.get(i));
+//            tail.next = l2;
+//            tail = l2;
+//        }
+//        return head.next;
+//    }
+//
+//    //  LL.initLinkByArray(new int[]{1,2,3})
+//    static ListNode initLinkByArray(int[] list1) {
+//        ListNode head = new ListNode();
+//        if(list1.length==0){
+//            return null;
+//        }
+//        ListNode tail = new ListNode(list1[0]);
+//        head.next = tail;
+//        for (int i = 1; i < list1.length; i++) {
+//            ListNode l2 = new ListNode(list1[i]);
+//            tail.next = l2;
+//            tail = l2;
+//        }
+//        return head.next;
+//    }
+//
+//
+//    static void printAll(ListNode head) {
+//        while (head.next != null) {
+//            System.out.println(head.val);
+//            head = head.next;
+//        }
+//        System.out.println(head.val);
+//    }
+//}
 
 class Solution19 {
 
