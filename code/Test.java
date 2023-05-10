@@ -245,3 +245,25 @@ class finalV {
     }
 }
 
+ class singleClass{
+    private singleClass(){};
+    private static volatile singleClass c1=null;
+
+    public static synchronized singleClass getInstance(){
+        if(c1==null){
+            synchronized (singleClass.class){
+                if(c1==null){
+                    c1=new singleClass();
+                }
+            }
+        }
+        return c1;
+//        return  c1;
+    }
+
+     public static void main(String[] args) {
+         singleClass s1=singleClass.getInstance();
+         singleClass s2=singleClass.getInstance();
+         System.out.println(s1.equals(s2));
+     }
+ }
